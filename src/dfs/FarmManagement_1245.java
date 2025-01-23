@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class FarmManagement_1245 {
 	private int[][] map;
 	private boolean[][] visit;
+	private boolean[][] checked;
 	
 	// 8방향
 	private int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
@@ -43,7 +44,9 @@ public class FarmManagement_1245 {
 			
 			for(int i = 0; i < map.length; i++) {
 				for(int j = 0; j < map[i].length; j++) {
-					if(!visit[i][j] && dfs(i, j)) {
+					checked = new boolean[checked.length][checked[0].length];
+					
+					if(checkNodes(i, j) && !visit[i][j] && dfs(i, j)) {
 						totalCount++;
 					}
 				}
@@ -58,6 +61,36 @@ public class FarmManagement_1245 {
 		}
 	}
 	
+	// 같은 높이의 노드는 하나의 봉우리로 가정하여 8방향중에 같은 높이가 있다면 해당 노드로 이동하여 다시 8방향 체크
+	private boolean checkNodes(int x, int y) {
+		boolean result = true;
+		
+		int height = map[x][y];
+		checked[x][y] = true;
+		
+		for(int i = 0; i < 8; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			
+			if(isOutOfIndex(nx, ny) || checked[nx][ny]) {
+				continue;
+			}
+			
+			if(map[nx][ny] > height) {
+				return false;
+			}else if(map[nx][ny] == height) {
+				result = checkNodes(nx, ny);
+				
+				// 재귀 함수이기 때문에 산봉우리가 아님을 뜻하는 false를 리턴 받아도 8방향 체크를 하면서 true로 바뀔 수 있음. 그래서 false를 리턴 받으면 계속해서 false 리턴을 유도.
+				if(!result) {
+					break;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
 	private boolean dfs(int x, int y) {
 		boolean result = true;
 
@@ -68,17 +101,20 @@ public class FarmManagement_1245 {
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 			
-			if(isOutOfIndex(nx, ny)) {
+			if(isOutOfIndex(nx, ny) || visit[nx][ny]) {
 				continue;
 			}
 			
 			// 8방향중 자신보다 높은 숫자가 있는경우 해당 노드는 산봉우리가 아님을 표시. -> false 리턴
 			if(map[nx][ny] > height) {
-				result = false;
+				return false;
 			}else if(height == map[nx][ny]){
 				// 같은 높이일 경우 하나의 봉우리이므로 다음 노드의 8방향도 확인 필요
-				if(!visit[nx][ny]) {
-					result = dfs(nx, ny);
+				result = dfs(nx, ny);
+				
+				// 재귀 함수이기 때문에 산봉우리가 아님을 뜻하는 false를 리턴 받아도 8방향 체크를 하면서 true로 바뀔 수 있음. 그래서 false를 리턴 받으면 계속해서 false 리턴을 유도.
+				if(!result) {
+					break;
 				}
 			}
 		}
@@ -100,6 +136,7 @@ public class FarmManagement_1245 {
 		
 		map = new int[x][y];
 		visit = new boolean[x][y];
+		checked = new boolean[x][y];
 		
 		for(int i = 0; i < x; i++) {
 			st = new StringTokenizer(br.readLine());

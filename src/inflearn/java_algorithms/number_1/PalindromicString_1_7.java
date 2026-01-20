@@ -1,4 +1,4 @@
-package inflearn.java_algorithms;
+package inflearn.java_algorithms.number_1;
 import java.io.*;
 
 public class PalindromicString_1_7 {

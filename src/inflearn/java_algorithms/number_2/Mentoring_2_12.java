@@ -1,4 +1,4 @@
-package inflearn.java_algorithms;
+package inflearn.java_algorithms.number_2;
 import java.io.*;
 import java.util.StringTokenizer;
 public class Mentoring_2_12 {

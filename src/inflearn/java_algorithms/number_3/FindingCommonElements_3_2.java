@@ -1,14 +1,15 @@
-package inflearn.java_algorithms;
+package inflearn.java_algorithms.number_3;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class CombiningTwoArrangements_3_1 {
+public class FindingCommonElements_3_2 {
 	public static void main(String[] args) {
-		CombiningTwoArrangements_3_1 prc = new CombiningTwoArrangements_3_1();
+		FindingCommonElements_3_2 prc = new FindingCommonElements_3_2();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
@@ -41,20 +42,19 @@ public class CombiningTwoArrangements_3_1 {
 		StringBuilder answer = new StringBuilder();
 		int p1 = 0;
 		int p2 = 0;
+		Arrays.sort(firstArray);
+		Arrays.sort(secondArray);
 		
 		while(p1 < n && p2 < m) {
-			if(firstArray[p1] < secondArray[p2]) {
-				answer.append(firstArray[p1++] + " ");
+			if(firstArray[p1] == secondArray[p2]) {
+				answer.append(firstArray[p1] + " ");
+				p1++;
+				p2++;
+			}else if(firstArray[p1] < secondArray[p2]) {
+				p1++;
 			}else {
-				answer.append(secondArray[p2++] + " ");
+				p2++;
 			}
-		}
-		
-		while(p1 < n) {
-			answer.append(firstArray[p1++] + " ");
-		}
-		while(p2 < m) {
-			answer.append(secondArray[p2++] + " ");
 		}
 		
 		return answer.toString().trim();

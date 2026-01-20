@@ -1,11 +1,10 @@
-package inflearn.java_algorithms;
-import java.io.*;
-import java.util.StringTokenizer;
+package inflearn.java_algorithms.number_1;
 
-public class WordInSentence_1_3 {
+import java.io.*;
+public class RemoveDuplicateCharacters_1_6 {
 
 	public static void main(String[] args) {
-		WordInSentence_1_3 prc = new WordInSentence_1_3();
+		RemoveDuplicateCharacters_1_6 prc = new RemoveDuplicateCharacters_1_6();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		try {
@@ -17,13 +16,11 @@ public class WordInSentence_1_3 {
 	}
 	
 	private String solution(String str) {
-		StringTokenizer st = new StringTokenizer(str);
 		String result = "";
 		
-		while(st.hasMoreTokens()) {
-			String token = st.nextToken();
-			if(result.length() < token.length()) {
-				result = token;
+		for(char c : str.toCharArray()) {
+			if(!result.contains(String.valueOf(c))) {
+				result += c;
 			}
 		}
 		

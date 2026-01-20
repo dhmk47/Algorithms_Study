@@ -1,4 +1,4 @@
-package inflearn.java_algorithms;
+package inflearn.java_algorithms.number_2;
 import java.io.*;
 public class VisibleStudent_2_2 {
 	

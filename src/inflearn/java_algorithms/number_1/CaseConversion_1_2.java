@@ -1,29 +1,30 @@
-package inflearn.java_algorithms;
+package inflearn.java_algorithms.number_1;
 
 import java.io.*;
-public class RemoveDuplicateCharacters_1_6 {
-
+public class CaseConversion_1_2 {
 	public static void main(String[] args) {
-		RemoveDuplicateCharacters_1_6 prc = new RemoveDuplicateCharacters_1_6();
+		CaseConversion_1_2 prc = new CaseConversion_1_2();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		try {
 			bw.write(prc.solution(br.readLine()));
 			bw.flush();
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String solution(String str) {
-		String result = "";
+		StringBuilder sb = new StringBuilder();
 		
 		for(char c : str.toCharArray()) {
-			if(!result.contains(String.valueOf(c))) {
-				result += c;
+			if(c >= 97) {
+				sb.append(Character.toUpperCase(c));
+			}else {
+				sb.append(Character.toLowerCase(c));
 			}
 		}
 		
-		return result;
+		return sb.toString();
 	}
 }

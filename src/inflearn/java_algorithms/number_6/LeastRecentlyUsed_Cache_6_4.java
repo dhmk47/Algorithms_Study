@@ -26,7 +26,7 @@ public class LeastRecentlyUsed_Cache_6_4 {
 				arr[i] = Integer.parseInt(st.nextToken());
 			}
 			
-			for(int number : prc.solution(s, n, arr)) {
+			for(int number : prc.solution_2(s, n, arr)) {
 				bw.write(String.valueOf(number) + " ");
 			}
 			bw.flush();
@@ -59,5 +59,25 @@ public class LeastRecentlyUsed_Cache_6_4 {
 			answer[s - i - 1] = q.poll();
 		}
 		return answer;
+	}
+	
+	private int[] solution_2(int s, int n, int[] arr) {
+		int[] cache = new int[s];
+		
+		for(int number : arr) {
+			int pos = cache.length - 1;
+			for(int i = 0; i < cache.length; i++) {
+				if(number == cache[i]) {
+					pos = i;
+					break;
+				}
+			}
+			for(int i = pos; i > 0; i--) {
+				cache[i] = cache[i - 1];
+			}
+			cache[0] = number;
+		}
+		
+		return cache;
 	}
 }

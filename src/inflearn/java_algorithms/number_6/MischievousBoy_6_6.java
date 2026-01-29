@@ -6,9 +6,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class InsertionSort_6_3 {
+public class MischievousBoy_6_6 {
 	public static void main(String[] args) {
-		InsertionSort_6_3 prc = new InsertionSort_6_3();
+		MischievousBoy_6_6 prc = new MischievousBoy_6_6();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
@@ -20,41 +20,37 @@ public class InsertionSort_6_3 {
 			for(int i = 0; i < n; i++) {
 				arr[i] = Integer.parseInt(st.nextToken());
 			}
-			for(int number : prc.solution(n, arr)) {
-				bw.write(String.valueOf(number) + " ");
-			}
+			
+			bw.write(prc.solution(n, arr));
 			bw.flush();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private int[] solution(int n, int[] arr) {
+	private String solution(int n, int[] arr) {
+		String answer = "";
+		int[] temp = arr.clone();
+		
 		for(int i = 1; i < n; i++) {
-			for(int j = 0; j < i; j++) {
-				if(arr[i - j] < arr[i - j - 1]) {
-					int temp = arr[i - j];
-					arr[i - j] = arr[i - j - 1];
-					arr[i - j - 1] = temp;
-				}
-			}
-		}
-		return arr;
-	}
-	
-	private int[] solution_2(int n, int[] arr) {
-		for(int i = 1; i < n; i++) {
-			int temp = arr[i];
+			int number = arr[i];
 			int j = 0;
 			for(j = i - 1; j >= 0; j--) {
-				if(arr[j] > temp) {
-					arr[j + 1] = arr[j];
+				if(temp[j] > number) {
+					temp[j + 1] = temp[j];
 				}else {
 					break;
 				}
 			}
-			arr[j + 1] = temp;
+			temp[j + 1] = number;
 		}
-		return arr;
+		
+		for(int i = 0; i < n; i++) {
+			if(arr[i] != temp[i]) {
+				answer += i + 1 + " ";
+			}
+		}
+		
+		return answer;
 	}
 }

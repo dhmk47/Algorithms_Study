@@ -35,30 +35,53 @@ public class MusicVideo_DecisionAlgorithm_6_9 {
 	
 	private int solution(int n, int m, int[] arr) {
 		int answer = 0;
-		int sum = 0;
-		int ltSum = arr[0];
-		int rtSum = arr[n - 1];
+		int loopSize = IntStream.of(arr).sum();
+		
+		int[] map = new int[loopSize];
+		for(int i = 0; i < loopSize; i++) {
+			map[i] = i + 1;
+		}
+		
 		int lt = 0;
-		int rt = n - 1;
-		
-		sum = IntStream.of(arr).sum();
-		
-		Arrays.sort(arr);
-		
+		int rt = map.length - 1;
+		int min = Integer.MAX_VALUE;
 		while(lt <= rt) {
-			int max = Math.max(ltSum, rtSum);
-			if(sum - ltSum - rtSum < max) {
-				answer = max;
-				break;
-			}else if(ltSum + arr[lt + 1] < rtSum + arr[rt - 1]){
-				lt++;
-				ltSum += arr[lt];
+			int mid = (lt + rt) / 2;
+			
+			int sum = 0;
+			int size = map[mid];
+			int count = 0;
+			
+			for(int num : arr) {
+				if(count > m) {
+					lt = mid + 1;
+					break;
+				}
+				
+				if(sum + num <= size) {
+					sum += num;
+				}else {
+					sum = num;
+					count++;
+				}
+			}
+			
+			if(sum > 0) {
+				count++;
+			}
+			
+			if(count <= m) {
+				rt = mid - 1;
+				
+				if(min > size) {
+					min = size;
+				}
 			}else {
-				rt--;
-				rtSum += arr[rt];
+				lt = mid + 1;
 			}
 		}
 		
+		answer = min;
 		
 		return answer;
 	}

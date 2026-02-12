@@ -13,6 +13,7 @@ public class TheExchangeOfCoins_8_5 {
 		
 		try {
 			n = Integer.parseInt(br.readLine());
+//			Integer[] arr = new Integer[n];
 			int[] arr = new int[n];
 			
 			StringTokenizer st = new StringTokenizer(br.readLine());
@@ -23,6 +24,8 @@ public class TheExchangeOfCoins_8_5 {
 			visit = new boolean[600];
 			check = new int[600];
 			
+//			Arrays.sort(arr, Collections.reverseOrder());
+//			prc.dfs(arr);
 			prc.bfs(arr);
 			
 			bw.write(String.valueOf(answer));
@@ -63,6 +66,9 @@ public class TheExchangeOfCoins_8_5 {
 	
 	private void dfs(int sum, int count, int[] arr) {
 		if(sum > m) {
+			return;
+		}
+		if(count >= answer) {
 			return;
 		}
 		if(sum == m) {
